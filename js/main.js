@@ -1,16 +1,15 @@
-const menuButton = document.querySelector(".navbar__toggle");
-const menu = document.querySelector(".navbar__menu");
+const menu = document.querySelector("#studioMenu");
 
-if (menuButton && menu) {
-  menuButton.addEventListener("click", () => {
-    const isOpen = menu.classList.toggle("is-open");
-    menuButton.setAttribute("aria-expanded", String(isOpen));
+if (menu && window.bootstrap) {
+  const collapse = window.bootstrap.Collapse.getOrCreateInstance(menu, {
+    toggle: false
   });
 
-  menu.querySelectorAll("a").forEach((link) => {
+  menu.querySelectorAll(".nav-link").forEach((link) => {
     link.addEventListener("click", () => {
-      menu.classList.remove("is-open");
-      menuButton.setAttribute("aria-expanded", "false");
+      if (menu.classList.contains("show")) {
+        collapse.hide();
+      }
     });
   });
 }
